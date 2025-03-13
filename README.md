@@ -1,5 +1,5 @@
 
-![Uploading fce40ca2e744285c92ba397cc5ef2354-ezgif.com-resize.gif…]()
+![fce40ca2e744285c92ba397cc5ef2354-ezgif com-resize](https://github.com/user-attachments/assets/2f161953-bb53-4044-80e6-1b33c20bf2f3)
 
 # Sistema de Produtos
 
