@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Produtos</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class= 'title'>Resultados no Console ୨୧</h1>
+    </div>
+    
+    <script>
+        // 1. Criar o array de produtos
+        const products = [
+            { id: 1010, name: "Switch", price: 1200.0, category: "Games", discount: 0.1, amount: 10 },
+            { id: 1011, name: "Xbox", price: 1800.0, category: "Games", discount: 0.2, amount: 5 },
+            { id: 1012, name: "Frieren", price: 50.0, category: "Livros", discount: 0.05, amount: 8 },
+            { id: 1013, name: "O Senhor dos Anéis", price: 100.0, category: "Livros", discount: 0.1, amount: 0 },
+            { id: 1014, name: "Playstation 5", price: 4500.0, category: "Games", discount: 0, amount: 3 },
+            { id: 1015, name: "Celeste", price: 120.0, category: "Games", discount: 0, amount: 7 },
+            { id: 1016, name: "Harry Potter", price: 70.0, category: "Livros", discount: 0.2, amount: 12 },
+            { id: 1017, name: "O Hobbit", price: 60.0, category: "Livros", discount: 0, amount: 5 },
+            { id: 1018, name: "Minecraft", price: 50.0, category: "Games", discount: 0.15, amount: 2 },
+            { id: 1019, name: "The Witcher 3", price: 150.0, category: "Games", discount: 0.3, amount: 0 }
+        ];
+
+        // Função para calcular preço com desconto
+        const getPriceWithDiscount = (product) => {
+            return product.discount > 0 ? (product.price * (1 - product.discount)).toFixed(2) : product.price.toFixed(2);
+        };
+
+        // Função para filtrar produtos com base na condição fornecida
+        const filterProducts = (products, conditionFn) => {
+            return products.filter(conditionFn).map(product => {
+                return {
+                    ...product,
+                    priceWithDiscount: getPriceWithDiscount(product)
+                };
+            });
+        };
+
+        // 2. Função para imprimir os produtos
+        const printProducts = (products) => {
+            console.log('--- Todos os Produtos ---');
+            products.forEach(product => {
+                console.log(`${product.name} - ${product.category} - R$ ${product.priceWithDiscount}${product.discount > 0 ? ' (PROMOÇÃO)' : ''}`);
+            });
+        };
+
+        // 3. Imprimir todos os produtos com desconto
+        const printDiscountedProducts = (products) => {
+            console.log('--- Produtos em Promoção ---');
+            filterProducts(products, product => product.discount > 0).forEach(product => {
+                console.log(`${product.name} - R$ ${product.priceWithDiscount}`);
+            });
+        };
+
+        // 4. Imprimir todos os produtos da categoria "Games"
+        const printGamesProducts = (products) => {
+            console.log('--- Produtos da Categoria Games ---');
+            filterProducts(products, product => product.category === 'Games').forEach(product => {
+                console.log(`${product.name} - R$ ${product.priceWithDiscount}`);
+            });
+        };
+
+        // 5. Imprimir todos os produtos em promoção na categoria "Livros"
+        const printDiscountedBooks = (products) => {
+            console.log('--- Produtos em Promoção na Categoria Livros ---');
+            filterProducts(products, product => product.category === 'Livros' && product.discount > 0).forEach(product => {
+                console.log(`${product.name} - R$ ${product.priceWithDiscount}`);
+            });
+        };
+
+        // 6. Imprimir todos os produtos com estoque zerado
+        const printOutOfStockProducts = (products) => {
+            console.log('--- Produtos com Estoque Zerado ---');
+            filterProducts(products, product => product.amount === 0).forEach(product => {
+                console.log(`${product.name} - Sem Estoque`);
+            });
+        };
+
+        // 7. Imprimir a quantidade total de estoque de todos os produtos
+        const printTotalStockAmount = (products) => {
+            const totalAmount = products.reduce((total, product) => total + product.amount, 0);
+            console.log('--- Quantidade Total de Estoque ---');
+            console.log(totalAmount);
+        };
+
+        // 8. Imprimir o produto mais caro
+        const printMostExpensiveProduct = (products) => {
+            console.log('--- Produto Mais Caro ---');
+            const mostExpensive = products.reduce((max, product) => (product.price > max.price ? product : max), products[0]);
+            console.log(`${mostExpensive.name} - R$ ${mostExpensive.price.toFixed(2)}`);
+        };
+
+        // 9. Imprimir o produto mais caro na categoria "Livros"
+        const printMostExpensiveBook = (products) => {
+            console.log('--- Produto Mais Caro na Categoria Livros ---');
+            const books = products.filter(product => product.category === 'Livros');
+            const mostExpensiveBook = books.reduce((max, book) => (book.price > max.price ? book : max), books[0]);
+            console.log(`${mostExpensiveBook.name} - R$ ${mostExpensiveBook.price.toFixed(2)}`);
+        };
+
+        // Chamada das funções
+        printProducts(products);
+        printDiscountedProducts(products);
+        printGamesProducts(products);
+        printDiscountedBooks(products);
+        printOutOfStockProducts(products);
+        printTotalStockAmount(products);
+        printMostExpensiveProduct(products);
+        printMostExpensiveBook(products);
+    </script>
+</body>
+</html>
